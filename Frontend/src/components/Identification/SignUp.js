@@ -1,16 +1,18 @@
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
+import ENDPOINTS from "../../api/endpoints"
+import {POST} from "../../api/axios"
 import "../../styles/Identification.scss"
 
 const SignUp = ({ switch_identification }) => {
 
+    const registerRoute = ENDPOINTS.USER_SIGNUP
     //States
     const [isHovered, setIsHovered] = useState(false);
     const [userSignup, setUserSignup] = useState({
-        username: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
+        user_email: "",
+        user_password: "",
+        user_confirmPassword: "",
     })
 
     const toastOptions = {
@@ -21,113 +23,23 @@ const SignUp = ({ switch_identification }) => {
         theme: "dark",
     };
 
-    const [passwordFlag, setPasswordFlag] = useState({
-        length: false,
-        min: false,
-        maj: false,
-        num: false,
-        special: false,
-    });
-
-    //Check functions
-    const checkUsername = () => {
-        if (userSignup.username.length < 3) {
-            toast.error("Username should be greater than 3 characters", toastOptions);
-            return false;
-        }
-        return true;
-    };
-
-    const checkEmail = () => {
-        if (userSignup.email === "") {
-            toast.error("Email is required", toastOptions);
-            return false;
-        } else {
-            const regex =
-                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-            const check = regex.test(String(userSignup.email).toLowerCase());
-            if (!check) {
-                toast.error("Invalid Email", toastOptions);
-                return false;
-            }
-            return true;
-        }
-    };
-
-    const checkPassword = () => {
-        var flags = {
-            length: false,
-            min: false,
-            maj: false,
-            num: false,
-            special: false,
-        };
-
-        if (userSignup.password.length >= 10) {
-            flags.length = true;
-        }
-        if (userSignup.password.match(/[a-z]/, "g")) {
-            flags.min = true;
-        }
-        if (userSignup.password.match(/[A-Z]/, "g")) {
-            flags.maj = true;
-        }
-        if (userSignup.password.match(/[0-9]/, "g")) {
-            flags.num = true;
-        }
-        if (userSignup.password.match(/\W|_/g)) {
-            flags.special = true;
-        }
-        const flags_array = Object.values(flags);
-        for (let i = 0; i < flags_array.length; i++) {
-            if (flags_array[i] === false) {
-                toast.error("Password does not meet site standards", toastOptions);
-                return false;
-            }
-        }
-        return true;
-    };
-
-    const checkSamePassword = () => {
-        if (userSignup.password !== userSignup.confirmPassword) {
-            toast.error(
-                "Password and Confirm Password should be same !",
-                toastOptions
-            );
-            return false;
-        }
-        return true;
-    };
-
 
     const signup = async (e) => {
         try {
             e.preventDefault();
-            if (
-                checkUsername() &&
-                checkEmail() &&
-                checkPassword() &&
-                checkSamePassword()
-            ) {
-                const { username, email, password } = userSignup;
-                const response = await axios.post(registerRoute,
-                    {
-                        username,
-                        email,
-                        password,
-                    }
+            const { user_email, user_password } = userSignup;
+            const response = await POST(registerRoute,
+                {
+                    user_email,
+                    user_password,
+                }
+            );
+            if (response.status === 201) {
+                alert(
+                    "Your Account has been Created !"
                 );
-                if (response.data.status === false) {
-                    toast.error(
-                        response.data.msg,
-                        toastOptions);
-                }
-                if (response.data.status === true) {
-                    alert(
-                        "Your Account has been Created !"
-                    );
-                }
             }
+
         } catch (err) {
             throw err;
         }
@@ -136,7 +48,7 @@ const SignUp = ({ switch_identification }) => {
 
     return (
         <div className="identification-container">
-            <form className="identification-form">
+            <form className="identification-form" onSubmit={signup}>
                 <h2 className="identification-form-title">S'inscrire</h2>
                 <input
                     className="identification-input"
@@ -163,9 +75,9 @@ const SignUp = ({ switch_identification }) => {
                     type="password"
                     placeholder="Confirmer le mot de passe"
                     onChange={(e) => {
-                        setUserLogin({
-                            ...userLogin,
-                            confirmPassword: e.target.value,
+                        setUserSignup({
+                            ...userSignup,
+                            user_confirmPassword: e.target.value,
                         })
                     }} />
                 <button className={isHovered ? 'identification-button-hovered' : 'identification-button'} type="submit" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>S'inscrire</button>
