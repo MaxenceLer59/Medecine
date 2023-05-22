@@ -1,29 +1,30 @@
 @import url(./default_settings.scss);
 
-.login-container {
+.identification-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background-color: #f8f8f8;
+    background-color: #003D3B;
+    position: relative;
 }
 
-.login-form {
+.identification-form {
     width: 300px;
     padding: 20px;
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.login-form-title {
+.identification-form-title {
     font-size: 24px;
     font-weight: bold;
     color: #333;
     margin-bottom: 20px;
 }
 
-.login-input {
+.identification-input {
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
@@ -31,16 +32,24 @@
     border-radius: 4px;
 }
 
-.login-button {
+.identification-button {
     width: 100%;
     padding: 10px;
-    background-color: #007bff;
-    color: #fff;
+    background-color: #26ABA7;
+    color: #ffff;
     border: none;
     border-radius: 4px;
     cursor: pointer;
 
     :hover {
-        background-color: #0056b3;
+        background-color: #A1E455;
     }
+}
+
+.identification-link-button {
+    color: #007bff;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
 }
