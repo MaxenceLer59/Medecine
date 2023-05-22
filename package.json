@@ -6,6 +6,7 @@
   "scripts": {
     "start": "electron .",
     "watch": "webpack --config webpack.common.js --watch",
+    "publish": "electron-packager .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
