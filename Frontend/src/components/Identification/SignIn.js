@@ -3,6 +3,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "../../styles/Identification.scss"
 
 const SignIn = ({switch_identification}) => {
+    const [isHovered, setIsHovered] = useState(false);
     const [userLogin, setUserLogin] = useState({
         email: "",
         password: "",
@@ -68,7 +69,7 @@ const SignIn = ({switch_identification}) => {
                             password: e.target.value,
                         })
                     }} />
-                <button className="identification-button" type="submit">Se connecter</button>
+                <button className={isHovered ? 'identification-button-hovered' : 'identification-button'} type="submit" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>Se connecter</button>
                 <button className="identification-link-button" onClick={switch_identification}>Pas encore de compte ?</button>
             </form>
             <ToastContainer />

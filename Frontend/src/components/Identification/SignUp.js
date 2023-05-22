@@ -5,6 +5,7 @@ import "../../styles/Identification.scss"
 const SignUp = ({ switch_identification }) => {
 
     //States
+    const [isHovered, setIsHovered] = useState(false);
     const [userSignup, setUserSignup] = useState({
         username: "",
         email: "",
@@ -167,7 +168,7 @@ const SignUp = ({ switch_identification }) => {
                             confirmPassword: e.target.value,
                         })
                     }} />
-                <button className="identification-button" type="submit">S'inscrire</button>
+                <button className={isHovered ? 'identification-button-hovered' : 'identification-button'} type="submit" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>S'inscrire</button>
                 <button className="identification-link-button" onClick={switch_identification}>Déjà un compte ?</button>
             </form>
             <ToastContainer />
