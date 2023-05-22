@@ -57,7 +57,7 @@ const SignUp = ({ switch_identification }) => {
                     onChange={(e) => {
                         setUserSignup({
                             ...userSignup,
-                            email: e.target.value,
+                            user_email: e.target.value,
                         })
                     }} />
                 <input
@@ -67,7 +67,7 @@ const SignUp = ({ switch_identification }) => {
                     onChange={(e) => {
                         setUserSignup({
                             ...userSignup,
-                            password: e.target.value,
+                            user_password: e.target.value,
                         })
                     }} />
                 <input

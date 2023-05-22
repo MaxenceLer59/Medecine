@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
+import ENDPOINTS from "../../api/endpoints"
+import {POST} from "../../api/axios"
 import "../../styles/Identification.scss"
 
 const SignIn = ({switch_identification}) => {
+    const loginRoute = ENDPOINTS.USER_SIGNIN
     const [isHovered, setIsHovered] = useState(false);
     const [userLogin, setUserLogin] = useState({
-        email: "",
-        password: "",
+        user_email: "",
+        user_password: "",
     });
 
     const toastOptions = {
@@ -20,24 +23,28 @@ const SignIn = ({switch_identification}) => {
     const login = async (e) => {
         try {
             e.preventDefault();
-            const { username, password } = userLogin;
+            const { username, user_password } = userLogin;
             const checkInfo = () => {
                 if (username === "") {
                     toast.error("Username can not be empty", toastOptions);
                     return false;
                 }
-                if (password === "") {
+                if (user_password === "") {
                     toast.error("Password can not be empty", toastOptions);
                     return false;
                 }
                 return true;
             };
             if (checkInfo()) {
-                const response = await axios.post(loginRoute, userLogin);
-                if (response.data.status === false) {
-                    toast.error(response.data.msg, toastOptions);
+                const response = await POST(loginRoute, userLogin);
+                console.log(response)
+                if (response.data.error) {
+                    toast.error(response.data.message, toastOptions);
                 }
                 if (!response.data.error) {
+                    alert(
+                        "You have been connected"
+                    )
                 }
             }
         } catch (err) {
@@ -47,7 +54,7 @@ const SignIn = ({switch_identification}) => {
 
     return (
         <div className="identification-container">
-            <form className="identification-form">
+            <form className="identification-form" onSubmit={login}>
                 <h2 className="identification-form-title">Connexion</h2>
                 <input
                     className="identification-input"
@@ -56,7 +63,7 @@ const SignIn = ({switch_identification}) => {
                     onChange={(e) => {
                         setUserLogin({
                             ...userLogin,
-                            email: e.target.value,
+                            user_email: e.target.value,
                         })
                     }} />
                 <input
@@ -66,7 +73,7 @@ const SignIn = ({switch_identification}) => {
                     onChange={(e) => {
                         setUserLogin({
                             ...userLogin,
-                            password: e.target.value,
+                            user_password: e.target.value,
                         })
                     }} />
                 <button className={isHovered ? 'identification-button-hovered' : 'identification-button'} type="submit" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>Se connecter</button>

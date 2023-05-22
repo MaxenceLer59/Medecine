@@ -1,8 +1,19 @@
 // main.js
 
 // Modules to control application life and create native browser window
-const { app, BrowserWindow } = require('electron')
-const path = require('path')
+const { app, BrowserWindow } = require('electron');
+const path = require('path');
+const { spawn } = require('child_process');
+
+// Lancement du serveur Node.js
+const serverProcess = spawn('node', [path.join(__dirname, 'Backend', 'server.js')]);
+serverProcess.stdout.on('data', (data) => {
+  console.log(`Sortie du serveur Node.js : ${data}`);
+});
+
+serverProcess.stderr.on('data', (data) => {
+  console.error(`Erreur du serveur Node.js : ${data}`);
+});
 
 const createWindow = () => {
   // Create the browser window.
@@ -38,7 +49,10 @@ app.whenReady().then(() => {
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') app.quit()
+  if (process.platform !== 'darwin') {
+    serverProcess.kill();
+    app.quit()
+  }
 })
 
 // In this file you can include the rest of your app's specific main process
