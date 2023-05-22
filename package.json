@@ -1,0 +1,17 @@
+{
+  "name": "medecine",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^24.3.1",
+    "electron-packager": "^17.1.1"
+  }
+}
