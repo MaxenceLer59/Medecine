@@ -3,17 +3,17 @@
 // Modules to control application life and create native browser window
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
-const { spawn } = require('child_process');
+// const { spawn } = require('child_process');
 
-// Lancement du serveur Node.js
-const serverProcess = spawn('node', [path.join(__dirname, 'Backend', 'server.js')]);
-serverProcess.stdout.on('data', (data) => {
-  console.log(`Sortie du serveur Node.js : ${data}`);
-});
+// // // Lancement du serveur Node.js
+// const serverProcess = spawn('node', [path.join(__dirname, 'Backend', 'server.js')]);
+// serverProcess.stdout.on('data', (data) => {
+//   console.log(`Sortie du serveur Node.js : ${data}`);
+// });
 
-serverProcess.stderr.on('data', (data) => {
-  console.error(`Erreur du serveur Node.js : ${data}`);
-});
+// serverProcess.stderr.on('data', (data) => {
+//   console.error(`Erreur du serveur Node.js : ${data}`);
+// });
 
 const createWindow = () => {
   // Create the browser window.
@@ -50,7 +50,7 @@ app.whenReady().then(() => {
 // explicitly with Cmd + Q.
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
-    serverProcess.kill();
+    // serverProcess.kill();
     app.quit()
   }
 })
