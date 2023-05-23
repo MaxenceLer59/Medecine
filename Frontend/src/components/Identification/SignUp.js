@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import ENDPOINTS from "../../api/endpoints"
 import {POST} from "../../api/axios"
-import "../../styles/Identification.scss";
-import { auth } from "../../../utils/Firebase";
+import { auth } from "../../../../config/firebase-config";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import "../../styles/Identification.scss";
 
 const SignUp = ({ switch_identification }) => {
 
