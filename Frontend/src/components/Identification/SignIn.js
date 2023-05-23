@@ -1,87 +1,105 @@
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
-import ENDPOINTS from "../../api/endpoints"
-import {POST} from "../../api/axios"
-import "../../styles/Identification.scss"
+import { auth } from "../../../../config/firebase-config";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import "../../styles/Identification.scss";
 
-const SignIn = ({switch_identification}) => {
-    const loginRoute = ENDPOINTS.USER_SIGNIN
-    const [isHovered, setIsHovered] = useState(false);
-    const [userLogin, setUserLogin] = useState({
-        user_email: "",
-        user_password: "",
-    });
+const SignIn = ({ switch_identification }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const [userLogin, setUserLogin] = useState({
+    user_email: "",
+    user_password: "",
+  });
 
-    const toastOptions = {
-        position: "bottom-right",
-        autoClose: 8000,
-        pauseOnHover: true,
-        draggable: true,
-        theme: "dark",
-    };
+  const toastOptions = {
+    position: "bottom-right",
+    autoClose: 8000,
+    pauseOnHover: true,
+    draggable: true,
+    theme: "dark",
+  };
 
-    const login = async (e) => {
-        try {
-            e.preventDefault();
-            const { username, user_password } = userLogin;
-            const checkInfo = () => {
-                if (username === "") {
-                    toast.error("Username can not be empty", toastOptions);
-                    return false;
-                }
-                if (user_password === "") {
-                    toast.error("Password can not be empty", toastOptions);
-                    return false;
-                }
-                return true;
-            };
-            if (checkInfo()) {
-                const response = await POST(loginRoute, userLogin);
-                console.log(response)
-                if (response.data.error) {
-                    toast.error(response.data.message, toastOptions);
-                }
-                if (!response.data.error) {
-                    alert(
-                        "You have been connected"
-                    )
-                }
-            }
-        } catch (err) {
-            throw err;
+  const login = async (e) => {
+    try {
+      e.preventDefault();
+      const { user_email, user_password } = userLogin;
+      const checkInfo = () => {
+        if (user_email === "") {
+          toast.error("Username can not be empty", toastOptions);
+          return false;
         }
-    };
+        if (user_password === "") {
+          toast.error("Password can not be empty", toastOptions);
+          return false;
+        }
+        return true;
+      };
+      if (checkInfo()) {
+        signInWithEmailAndPassword(auth, user_email, user_password)
+          .then((userCredential) => {
+            // Signed in
+            const user = userCredential.user;
+            console.log(user);
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log(errorMessage);
+          });
+      }
+    } catch (err) {
+      throw err;
+    }
+  };
 
-    return (
-        <div className="identification-container">
-            <form className="identification-form" onSubmit={login}>
-                <h2 className="identification-form-title">Connexion</h2>
-                <input
-                    className="identification-input"
-                    type="text"
-                    placeholder="Adresse e-mail"
-                    onChange={(e) => {
-                        setUserLogin({
-                            ...userLogin,
-                            user_email: e.target.value,
-                        })
-                    }} />
-                <input
-                    className="identification-input"
-                    type="password"
-                    placeholder="Mot de passe"
-                    onChange={(e) => {
-                        setUserLogin({
-                            ...userLogin,
-                            user_password: e.target.value,
-                        })
-                    }} />
-                <button className={isHovered ? 'identification-button-hovered' : 'identification-button'} type="submit" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>Se connecter</button>
-                <button className="identification-link-button" onClick={switch_identification}>Pas encore de compte ?</button>
-            </form>
-            <ToastContainer />
-        </div>
-    )
-}
+  return (
+    <div className="identification-container">
+      <form className="identification-form" onSubmit={login}>
+        <h2 className="identification-form-title">Connexion</h2>
+        <input
+          className="identification-input"
+          type="text"
+          placeholder="Adresse e-mail"
+          onChange={(e) => {
+            setUserLogin({
+              ...userLogin,
+              user_email: e.target.value,
+            });
+          }}
+        />
+        <input
+          className="identification-input"
+          type="password"
+          placeholder="Mot de passe"
+          onChange={(e) => {
+            setUserLogin({
+              ...userLogin,
+              user_password: e.target.value,
+            });
+          }}
+        />
+        <button
+          className={
+            isHovered
+              ? "identification-button-hovered"
+              : "identification-button"
+          }
+          type="submit"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          Se connecter
+        </button>
+        <button
+          className="identification-link-button"
+          onClick={switch_identification}
+        >
+          Pas encore de compte ?
+        </button>
+      </form>
+      <ToastContainer />
+    </div>
+  );
+};
 
 export default SignIn;

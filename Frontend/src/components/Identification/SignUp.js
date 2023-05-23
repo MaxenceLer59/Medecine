@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
-import ENDPOINTS from "../../api/endpoints"
-import {POST} from "../../api/axios"
 import { auth } from "../../../../config/firebase-config";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import "../../styles/Identification.scss";
@@ -31,18 +29,6 @@ const SignUp = ({ switch_identification }) => {
             e.preventDefault();
             const { user_email, user_password } = userSignup;
             createUserWithEmailAndPassword(auth, user_email, user_password);
-            // const response = await POST(registerRoute,
-            //     {
-            //         user_email,
-            //         user_password,
-            //     }
-            // );
-            // if (response.status === 201) {
-            //     alert(
-            //         "Your Account has been Created !"
-            //     );
-            // }
-
         } catch (err) {
             throw err;
         }

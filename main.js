@@ -3,17 +3,6 @@
 // Modules to control application life and create native browser window
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
-// const { spawn } = require('child_process');
-
-// // // Lancement du serveur Node.js
-// const serverProcess = spawn('node', [path.join(__dirname, 'Backend', 'server.js')]);
-// serverProcess.stdout.on('data', (data) => {
-//   console.log(`Sortie du serveur Node.js : ${data}`);
-// });
-
-// serverProcess.stderr.on('data', (data) => {
-//   console.error(`Erreur du serveur Node.js : ${data}`);
-// });
 
 const createWindow = () => {
   // Create the browser window.
@@ -21,6 +10,9 @@ const createWindow = () => {
     width: 800,
     height: 600,
     webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
+      enableRemoteModule: true,
       preload: path.join(__dirname, 'preload.js')
     }
   })
