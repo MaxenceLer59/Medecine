@@ -4,6 +4,7 @@ import { auth, db } from "../../../../config/firebase-config";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { ref, set } from "firebase/database";
 import "../../styles/Identification.scss";
+import "react-toastify/dist/ReactToastify.css";
 
 const SignUp = ({ switch_identification }) => {
   //States
@@ -14,6 +15,14 @@ const SignUp = ({ switch_identification }) => {
     user_confirmPassword: "",
   });
 
+  const [passwordFlag, setPasswordFlag] = useState({
+    length: false,
+    min: false,
+    maj: false,
+    num: false,
+    special: false,
+  });
+
   const toastOptions = {
     position: "bottom-right",
     autoClose: 8000,
@@ -22,25 +31,69 @@ const SignUp = ({ switch_identification }) => {
     theme: "dark",
   };
 
+  const checkPassword = () => {
+    var flags = {
+      length: false,
+      min: false,
+      maj: false,
+      num: false,
+      special: false,
+    };
+
+    if (userSignup.user_password.length >= 10) {
+      flags.length = true;
+    }
+    if (userSignup.user_password.match(/[a-z]/, "g")) {
+      flags.min = true;
+    }
+    if (userSignup.user_password.match(/[A-Z]/, "g")) {
+      flags.maj = true;
+    }
+    if (userSignup.user_password.match(/[0-9]/, "g")) {
+      flags.num = true;
+    }
+    if (userSignup.user_password.match(/\W|_/g)) {
+      flags.special = true;
+    }
+    const flags_array = Object.values(flags);
+    for (let i = 0; i < flags_array.length; i++) {
+      if (flags_array[i] === false) {
+        toast.error("Le mot de passe ne respecte pas les bonnes pratiques !", toastOptions);
+        return false;
+      }
+    }
+    return true;
+  };
+
+  const checkSamePassword = () => {
+    if (userSignup.user_password !== userSignup.user_confirmPassword) {
+      toast.error("Les mots de passes ne correspondent pas !",toastOptions);
+      return false;
+    }
+    return true;
+  }
+
   const signup = async (e) => {
     try {
       e.preventDefault();
-      const { user_email, user_password } = userSignup;
-      createUserWithEmailAndPassword(auth, user_email, user_password)
+      if (checkPassword() && checkSamePassword()) {
+        const { user_email, user_password, } = userSignup;
+        createUserWithEmailAndPassword(auth, user_email, user_password)
         .then((userCredential) => {
           // Signed in
           const userId = userCredential.user.uid;
           set(ref(db, "users/" + userId), {
             user_email: user_email,
-            user_password: user_password,
           });
+          toast.success('Votre compte à bien était enregistrer vous pouvez maintenant vous connecter !')
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
           console.log(errorCode, errorMessage);
         });
-    } catch (err) {
+      }
+      } catch (err) {
       throw err;
     }
   };
