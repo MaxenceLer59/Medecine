@@ -41,7 +41,7 @@ const SignIn = ({ switch_identification }) => {
           .then((userCredential) => {
             // Signed in
             const user = userCredential.user;
-            console.log(user);
+            toast.success("Vous avez réussi à vous connecter !")
           })
           .catch((error) => {
             const errorCode = error.code;

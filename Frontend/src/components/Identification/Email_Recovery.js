@@ -28,7 +28,7 @@ const Email_Recovery = () => {
       })
       .catch((error) => {
         const errorCode = error.code;
-        if (errorCode === 'auth/invalid-email') toast.error(`Ce compte n'existe pas !`);
+        if (errorCode === 'auth/invalid-email') toast.error(`Ce compte n'existe pas !`, toastOptions);
         else toast.error(`Une erreur s'est produite lors de l'envoi de l'e-mail de réinitialisation. Veuillez recommencer !`, toastOptions);
       });
     } catch(err) {
