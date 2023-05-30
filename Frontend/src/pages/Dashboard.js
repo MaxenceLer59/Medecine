@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import "../styles/Dashboard.scss"
 import Profil from "../components/Profil/Profil";
 import Patients from "../components/Patients/Patients";
 import logo from "../../public/Image/brand-logo.png"
+import History from "../components/History/History";
+import "../styles/Dashboard.scss"
 
 const Dashboard = () => {
 
@@ -16,8 +17,9 @@ const Dashboard = () => {
                     <h3>Medecine</h3>
                 </div>
                 <div className="sidebar-items">
-                    <div className="sidebar-item" onClick={() => {setItemSelected('profil')}}>Profil</div>
-                    <div className="sidebar-item" onClick={() => {setItemSelected('patients')}}>Liste des Patients</div>
+                    <div className="sidebar-item" onClick={() => { setItemSelected('profil') }}>Profil</div>
+                    <div className="sidebar-item" onClick={() => { setItemSelected('patients') }}>Liste des Patients</div>
+                    <div className="sidebar-item" onClick={() => { setItemSelected('history') }}>Historique</div>
                 </div>
                 <button className="logout-button">
                     Déconnexion
@@ -29,7 +31,9 @@ const Dashboard = () => {
                     :
                     itemSelected === 'patients' ? <Patients />
                         :
-                        null}
+                        itemSelected === 'history' ? <History />
+                            :
+                            null}
             </div>
         </div>
     );
