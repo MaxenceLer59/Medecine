@@ -1,0 +1,60 @@
+@import url(./default_settings.scss);
+
+.identification-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #003D3B;  
+}
+
+.identification-form {
+    width: 300px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.identification-form-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.identification-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.identification-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #26ABA7;
+    color: #ffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.identification-button-hovered {
+    width: 100%;
+    padding: 10px;
+    background-color: #A1E455;
+    color: #ffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.identification-link-button {
+    color: #007bff;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
