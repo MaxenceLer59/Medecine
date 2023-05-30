@@ -7,7 +7,8 @@ import Email_Recovery from "./Email_Recovery";
 import Dashboard from "../../pages/Dashboard";
 
 const SignIn = ({ switch_identification }) => {
-  const [redirecToDashBoard, setRedirectToDashBoard] = useState(false);
+
+  const [redirecToDashBoard, setRedirectToDashBoard] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
   const [forgetPassword, setForgetPassword] = useState(false);
   const [userLogin, setUserLogin] = useState({
@@ -41,7 +42,6 @@ const SignIn = ({ switch_identification }) => {
       if (checkInfo()) {
         signInWithEmailAndPassword(auth, user_email, user_password)
           .then((userCredential) => {
-            // Signed in
             toast.success("Vous avez réussi à vous connecter !");
             setRedirectToDashBoard(true);
 
