@@ -20,8 +20,8 @@ const Dashboard = () => {
                     <img src={logo} alt="logo" />
                     <h3>Medecine</h3>
                 </div>
-                <div className={ isHoveredAdd ? "sidebar-add-patient-hovered" : 'sidebar-add-patient'}>
-                    <button onClick={() => {setAddPatientModal(true)}} onMouseEnter={() => {setIsHoveredAdd(true)}} onMouseLeave={() => {setIsHoveredAdd(false)}}>
+                <div>
+                    <button className={ isHoveredAdd ? "sidebar-add-patient-hovered" : 'sidebar-add-patient'} onClick={() => {setAddPatientModal(true) }} onMouseEnter={() => {setIsHoveredAdd(true)}} onMouseLeave={() => {setIsHoveredAdd(false)}}>
                         Ajouter un patient
                     </button>
                     { addPatientModal ? <Add_Patient modal_state={addPatientModal}/> : null}
