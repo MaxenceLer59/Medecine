@@ -7,18 +7,18 @@ const path = require('path');
 const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
       enableRemoteModule: true,
       preload: path.join(__dirname, 'preload.js')
     }
-  })
+  });
+
+  mainWindow.maximize();
 
   // and load the index.html of the app.
-  mainWindow.loadFile('./Frontend/public/index.html')
+  mainWindow.loadFile('./Frontend/public/index.html');
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()

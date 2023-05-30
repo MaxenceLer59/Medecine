@@ -4,12 +4,14 @@ import Patients from "../components/Patients/Patients";
 import logo from "../../public/Image/brand-logo.png"
 import History from "../components/History/History";
 import "../styles/Dashboard.scss"
+import Add_Patient from "../components/Patients/Add_Patient";
 
 const Dashboard = () => {
 
     const [itemSelected, setItemSelected] = useState("");
     const [isHoveredAdd, setIsHoveredAdd] = useState(false);
     const [isHoveredLogout, setIsHoveredLogout] = useState(false);
+    const [addPatientModal, setAddPatientModal] = useState(false);
 
     return (
         <div className="dashboard-container">
@@ -18,9 +20,12 @@ const Dashboard = () => {
                     <img src={logo} alt="logo" />
                     <h3>Medecine</h3>
                 </div>
-                <button className={ isHoveredAdd ? "sidebar-add-patient-hovered" : 'sidebar-add-patient'} onMouseEnter={() => {setIsHoveredAdd(true)}} onMouseLeave={() => {setIsHoveredAdd(false)}}>
-                    Ajouter un patient
-                </button>
+                <div className={ isHoveredAdd ? "sidebar-add-patient-hovered" : 'sidebar-add-patient'}>
+                    <button onClick={() => {setAddPatientModal(true)}} onMouseEnter={() => {setIsHoveredAdd(true)}} onMouseLeave={() => {setIsHoveredAdd(false)}}>
+                        Ajouter un patient
+                    </button>
+                    { addPatientModal ? <Add_Patient modal_state={addPatientModal}/> : null}
+                </div>
                 <div className="sidebar-items">
                     <div className="sidebar-item" onClick={() => { setItemSelected('profil') }}>Profil</div>
                     <div className="sidebar-item" onClick={() => { setItemSelected('patients') }}>Liste des Patients</div>
