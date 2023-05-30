@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { auth } from "../../../../config/firebase-config";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import "../../styles/Identification.scss";
 import Email_Recovery from "./Email_Recovery";
 import Dashboard from "../../pages/Dashboard";
+import { UserContext } from "../../../../config/userContext";
 
 const SignIn = ({ switch_identification }) => {
 
-  const [redirecToDashBoard, setRedirectToDashBoard] = useState(true);
+  const [redirecToDashBoard, setRedirectToDashBoard] = useState(false);
+  const { updateUserUID } = useContext(UserContext);
   const [isHovered, setIsHovered] = useState(false);
   const [forgetPassword, setForgetPassword] = useState(false);
   const [userLogin, setUserLogin] = useState({
@@ -42,6 +44,8 @@ const SignIn = ({ switch_identification }) => {
       if (checkInfo()) {
         signInWithEmailAndPassword(auth, user_email, user_password)
           .then((userCredential) => {
+            const uid = userCredential.user.uid;
+            updateUserUID(uid); // Mettre à jour l'UID de l'utilisateur connecté
             toast.success("Vous avez réussi à vous connecter !");
             setRedirectToDashBoard(true);
 
