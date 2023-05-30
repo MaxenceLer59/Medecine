@@ -15,7 +15,7 @@ const Email_Recovery = () => {
     autoClose: 8000,
     pauseOnHover: true,
     draggable: true,
-    theme: "dark",
+    theme: "dark", 
   };
 
   const handleFormSubmit = (e) => {
