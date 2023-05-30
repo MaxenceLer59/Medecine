@@ -1,0 +1,73 @@
+@import url(./default_settings.scss);
+
+body.active-modal {
+    overflow-y: hidden;
+}
+
+.modal,
+.overlay {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+}
+
+.overlay {
+    background: rgba(49, 49, 49, 0.8);
+}
+
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    line-height: 1.4;
+    max-width: 600px;
+    min-width: 300px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        border-radius: 2rem;
+        padding: 3rem 5rem;
+    }
+
+    h3 {
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    input {
+        padding: 1rem;
+        border: 0.1rem solid #ccc;
+        border-radius: 0.4rem;
+        width: 100%;
+        font-size: 1rem;
+    }
+
+    button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        background-color: #6a0505;
+        color: white;
+        padding: 1rem 2rem;
+        border: none;
+        font-weight: bold;
+        cursor: pointer;
+        border-radius: 0.4rem;
+        font-size: 1rem;
+        text-transform: uppercase;
+        transition: 0.5s ease-in-out;
+    }
+}
