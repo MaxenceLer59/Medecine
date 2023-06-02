@@ -14,7 +14,6 @@ const Dashboard = () => {
     const [addPatientModal, setAddPatientModal] = useState(false);
 
     const DisplayModal = () => {
-        console.dir(addPatientModal)
         if (addPatientModal) setAddPatientModal(false);
         else setAddPatientModal(true);
       }

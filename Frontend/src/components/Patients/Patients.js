@@ -101,28 +101,30 @@ const Patients = () => {
                     <button type="submit"><img src={loop} alt="loop" /></button>
                 </form>
             </div>
-            {displayPatientList.map((patient) => {
-                // Vérification si userUID correspond à user.uid
-                if (patient.user_uid === userUID) {
-                    return (
-                        <div className="patient-card">
-                            <img src={people} alt="people" />
-                            <div className="patient-info">
-                                <p className="patient-info-name-firstname">
-                                    <span className="toUpperCaseName">{patient.patient_name} </span>
-                                    <span className="capitalizeFirstName">{patient.patient_firstname}</span>
-                                </p>
-                                <p className="patient-info-birthday">{formatDate(patient.patient_birthday)}</p>
+            <div className="patient-cards">
+                {displayPatientList.map((patient) => {
+                    // Vérification si userUID correspond à user.uid
+                    if (patient.user_uid === userUID) {
+                        return (
+                            <div className="patient-card">
+                                <img src={people} alt="people" />
+                                <div className="patient-info">
+                                    <p className="patient-info-name-firstname">
+                                        <span className="toUpperCaseName">{patient.patient_name} </span>
+                                        <span className="capitalizeFirstName">{patient.patient_firstname}</span>
+                                    </p>
+                                    <p className="patient-info-birthday">Née le: {formatDate(patient.patient_birthday)}</p>
+                                </div>
+                                <button className="patient-btn-fiche">
+                                    Voir Fiche
+                                </button>
                             </div>
-                            <button className="patient-btn-fiche">
-                                Voir Fiche
-                            </button>
-                        </div>
-                    );
-                } else {
-                    return null; // Ignorer le patient s'il ne correspond pas à l'utilisateur actuel
-                }
-            })}
+                        );
+                    } else {
+                        return null; // Ignorer le patient s'il ne correspond pas à l'utilisateur actuel
+                    }
+                })}
+            </div>
         </div>
     );
 };
