@@ -61,7 +61,7 @@ const SignIn = ({ switch_identification }) => {
     }
   };
 
-  return ( redirecToDashBoard ? <Dashboard />
+  return (redirecToDashBoard ? <Dashboard />
     : forgetPassword == false ?
       <div className="identification-container">
         <form className="identification-form" onSubmit={login}>
