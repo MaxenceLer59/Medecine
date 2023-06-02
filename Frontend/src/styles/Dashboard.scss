@@ -41,15 +41,11 @@
                 border: none;
                 border-radius: 4px;
                 cursor: pointer;  
-            }
-            .sidebar-add-patient-hovered {
-                padding: 10px;
-                background-color: #00bfff5c;
-                color: #ffff;
-                border: none;
-                border-radius: 4px;
-                cursor: pointer;
-            }
+                
+                &:hover{
+                    background-color: #00bfff5c;
+                }
+            }            
         }
     
         
@@ -67,16 +63,12 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
+
+            &:hover {
+                background-color: #26aba753;
+            }
         }
-    
-        .logout-button-hovered {
-            width: 100%;
-            background-color: #26aba753;
-            color: #ffff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
+         
     }
     
     .dashboard-content {

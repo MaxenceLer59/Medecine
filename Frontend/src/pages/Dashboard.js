@@ -5,20 +5,30 @@ import logo from "../../public/Image/brand-logo.png"
 import History from "../components/History/History";
 import "../styles/Dashboard.scss"
 import Add_Patient from "../components/Patients/Add_Patient";
+import { auth } from "../../../config/firebase-config";
+import { signOut } from "firebase/auth";
+import Identification from "./Identification";
 
 const Dashboard = () => {
-
+    const [isConnected, setIsConnected] = useState(true);
     const [itemSelected, setItemSelected] = useState("");
-    const [isHoveredAdd, setIsHoveredAdd] = useState(false);
-    const [isHoveredLogout, setIsHoveredLogout] = useState(false);
     const [addPatientModal, setAddPatientModal] = useState(false);
 
     const DisplayModal = () => {
         if (addPatientModal) setAddPatientModal(false);
         else setAddPatientModal(true);
-      }
+    }
 
-    return (
+    const LogOut = async (e) => {
+        try {
+            e.preventDefault();
+            await signOut(auth).then(setIsConnected(false));
+        } catch (err) {
+            throw (err)
+        }
+    }
+
+    return (isConnected ?
         <div className="dashboard-container">
             <div className="sidebar">
                 <div className="sidebar-brand">
@@ -26,17 +36,17 @@ const Dashboard = () => {
                     <h3>Medecine</h3>
                 </div>
                 <div className="sidebar-btn-add-patient">
-                    <button className={ isHoveredAdd ? "sidebar-add-patient-hovered" : 'sidebar-add-patient'} onClick={DisplayModal} onMouseEnter={() => {setIsHoveredAdd(true)}} onMouseLeave={() => {setIsHoveredAdd(false)}}>
+                    <button className='sidebar-add-patient' onClick={DisplayModal}>
                         Ajouter un patient
                     </button>
-                    { addPatientModal ? <Add_Patient modal_state={DisplayModal}/> : null}
+                    {addPatientModal ? <Add_Patient modal_state={DisplayModal} /> : null}
                 </div>
                 <div className="sidebar-items">
                     <div className="sidebar-item" onClick={() => { setItemSelected('profil') }}>Profil</div>
                     <div className="sidebar-item" onClick={() => { setItemSelected('patients') }}>Liste des Patients</div>
                     <div className="sidebar-item" onClick={() => { setItemSelected('history') }}>Historique</div>
                 </div>
-                <button className={ isHoveredLogout ? "logout-button-hovered" : "logout-button"} onMouseEnter={() => {setIsHoveredLogout(true)}} onMouseLeave={() => {setIsHoveredLogout(false)}}>
+                <button className="logout-button" onClick={LogOut}>
                     Déconnexion
                 </button>
             </div>
@@ -51,6 +61,8 @@ const Dashboard = () => {
                             null}
             </div>
         </div>
+        :
+        <Identification />
     );
 };
 
