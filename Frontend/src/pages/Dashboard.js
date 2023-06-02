@@ -13,6 +13,12 @@ const Dashboard = () => {
     const [isHoveredLogout, setIsHoveredLogout] = useState(false);
     const [addPatientModal, setAddPatientModal] = useState(false);
 
+    const DisplayModal = () => {
+        console.dir(addPatientModal)
+        if (addPatientModal) setAddPatientModal(false);
+        else setAddPatientModal(true);
+      }
+
     return (
         <div className="dashboard-container">
             <div className="sidebar">
@@ -21,10 +27,10 @@ const Dashboard = () => {
                     <h3>Medecine</h3>
                 </div>
                 <div className="sidebar-btn-add-patient">
-                    <button className={ isHoveredAdd ? "sidebar-add-patient-hovered" : 'sidebar-add-patient'} onClick={() => {setAddPatientModal(true) }} onMouseEnter={() => {setIsHoveredAdd(true)}} onMouseLeave={() => {setIsHoveredAdd(false)}}>
+                    <button className={ isHoveredAdd ? "sidebar-add-patient-hovered" : 'sidebar-add-patient'} onClick={DisplayModal} onMouseEnter={() => {setIsHoveredAdd(true)}} onMouseLeave={() => {setIsHoveredAdd(false)}}>
                         Ajouter un patient
                     </button>
-                    { addPatientModal ? <Add_Patient modal_state={addPatientModal}/> : null}
+                    { addPatientModal ? <Add_Patient modal_state={DisplayModal}/> : null}
                 </div>
                 <div className="sidebar-items">
                     <div className="sidebar-item" onClick={() => { setItemSelected('profil') }}>Profil</div>

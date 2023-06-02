@@ -6,9 +6,8 @@ import "../../styles/Patients.scss";
 import { UserContext } from "../../../../config/userContext";
 import { ToastContainer, toast } from "react-toastify";
 
-const Add_Patient = (modal_state) => {
+const Add_Patient = ({ modal_state }) => {
 
-    const [addPatientModal, setAddPatientModal] = useState(modal_state);
     const [patientInfos, setPatientInfos] = useState({
         user_uid: useContext(UserContext).userUID,
         patient_name: "",
@@ -50,65 +49,57 @@ const Add_Patient = (modal_state) => {
     }
 
     return (
-        <>
-            {addPatientModal ?
-                <div className="modal">
-                    <div
-                        onClick={() => setAddPatientModal(false)}
-                        className="overlay"
-                    ></div>
-                    <div className="modal-content">
-                        <form onSubmit={add_patient_to_firestore_database}>
-                            <h3>Ajout d'un Patient</h3>
-                            <input
-                                type="text"
-                                placeholder="Nom"
-                                onChange={(e) => {
-                                    setPatientInfos({
-                                        ...patientInfos,
-                                        patient_name: e.target.value.toString()
-                                    })
-                                }}
-                            />
-                            <input
-                                type="text"
-                                placeholder="Prénom"
-                                onChange={(e) => {
-                                    setPatientInfos({
-                                        ...patientInfos,
-                                        patient_firstname: e.target.value.toString()
-                                    })
-                                }}
-                            />
-                            <input
-                                type="date"
-                                onChange={(e) => {
-                                    setPatientInfos({
-                                        ...patientInfos,
-                                        patient_birthday: e.target.value.toString()
-                                    })
-                                }}
-                            />
-                            <input
-                                type="tel"
-                                placeholder="06..."
-                                onChange={(e) => {
-                                    setPatientInfos({
-                                        ...patientInfos,
-                                        patient_phone: e.target.value.toString()
-                                    })
-                                }}
-                            />
-                            <button type="submit">
-                                Ajouter Patient
-                            </button>
-                        </form>
-                    </div>
-                    <ToastContainer />
-                </div>
-                :
-                null}
-        </>
+        <div className="modal">
+            <div onClick={modal_state} className="overlay" />
+            <div className="modal-content">
+                <form onSubmit={add_patient_to_firestore_database}>
+                    <h3>Ajout d'un Patient</h3>
+                    <input
+                        type="text"
+                        placeholder="Nom"
+                        onChange={(e) => {
+                            setPatientInfos({
+                                ...patientInfos,
+                                patient_name: e.target.value.toString()
+                            })
+                        }}
+                    />
+                    <input
+                        type="text"
+                        placeholder="Prénom"
+                        onChange={(e) => {
+                            setPatientInfos({
+                                ...patientInfos,
+                                patient_firstname: e.target.value.toString()
+                            })
+                        }}
+                    />
+                    <input
+                        type="date"
+                        onChange={(e) => {
+                            setPatientInfos({
+                                ...patientInfos,
+                                patient_birthday: e.target.value.toString()
+                            })
+                        }}
+                    />
+                    <input
+                        type="tel"
+                        placeholder="06..."
+                        onChange={(e) => {
+                            setPatientInfos({
+                                ...patientInfos,
+                                patient_phone: e.target.value.toString()
+                            })
+                        }}
+                    />
+                    <button type="submit">
+                        Ajouter Patient
+                    </button>
+                </form>
+            </div>
+            <ToastContainer />
+        </div>
     )
 }
 
