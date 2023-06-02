@@ -11,12 +11,21 @@ const Patients = () => {
     const [search, setSearch] = useState("");
     const [patientList, setPatientList] = useState([]);
     const [displayPatientList, setDisplayPatientList] = useState([]);
+    const monthNames = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
     const userUID = useContext(UserContext).userUID;
 
     const toastOptions = {
         position: "bottom-right",
         theme: "dark",
         autoClose: 3000,
+    };
+
+    const formatDate = (dateString) => {
+        const [year, month, day] = dateString.split("-");
+        const monthIndex = parseInt(month, 10) - 1;
+        const monthName = monthNames[monthIndex];
+        // Retourner la date formatée
+        return `${parseInt(day, 10)} ${monthName} ${year}`;
     };
 
     useEffect(() => {
@@ -26,6 +35,30 @@ const Patients = () => {
             const data = snapshot.val();
             if (data) {
                 const patients = Object.values(data);
+                // Tri des patients par nom et prénom (ordre alphabétique)
+                patients.sort((a, b) => {
+                    const lastNameA = a.patient_name.toUpperCase();
+                    const lastNameB = b.patient_name.toUpperCase();
+                    const firstNameA = a.patient_firstname.toUpperCase();
+                    const firstNameB = b.patient_firstname.toUpperCase();
+
+                    if (lastNameA < lastNameB) {
+                        return -1;
+                    }
+                    if (lastNameA > lastNameB) {
+                        return 1;
+                    }
+
+                    // Si les noms sont identiques, tri par prénom
+                    if (firstNameA < firstNameB) {
+                        return -1;
+                    }
+                    if (firstNameA > firstNameB) {
+                        return 1;
+                    }
+
+                    return 0;
+                });
                 setPatientList(patients);
                 setDisplayPatientList(patients);
             }
@@ -79,6 +112,7 @@ const Patients = () => {
                                     <span className="toUpperCaseName">{patient.patient_name} </span>
                                     <span className="capitalizeFirstName">{patient.patient_firstname}</span>
                                 </p>
+                                <p className="patient-info-birthday">{formatDate(patient.patient_birthday)}</p>
                             </div>
                             <button className="patient-btn-fiche">
                                 Voir Fiche
