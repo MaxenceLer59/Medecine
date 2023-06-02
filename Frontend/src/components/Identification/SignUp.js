@@ -8,7 +8,6 @@ import "react-toastify/dist/ReactToastify.css";
 
 const SignUp = ({ switch_identification }) => {
   //States
-  const [isHovered, setIsHovered] = useState(false);
   const [userSignup, setUserSignup] = useState({
     user_email: "",
     user_password: "",
@@ -101,7 +100,7 @@ const SignUp = ({ switch_identification }) => {
   return (
     <div className="identification-container">
       <form className="identification-form" onSubmit={signup}>
-        <h2 className="identification-form-title">S'inscrire</h2>
+        <h2 className="identification-form-title">Inscription</h2>
         <input
           className="identification-input"
           type="email"
@@ -135,24 +134,8 @@ const SignUp = ({ switch_identification }) => {
             });
           }}
         />
-        <button
-          className={
-            isHovered
-              ? "identification-button-hovered"
-              : "identification-button"
-          }
-          type="submit"
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-        >
-          S'inscrire
-        </button>
-        <button
-          className="identification-link-button"
-          onClick={switch_identification}
-        >
-          Déjà un compte ?
-        </button>
+        <button className="identification-button" type="submit">S'inscrire</button>
+        <button className="identification-link-button" onClick={switch_identification}>Déjà un compte ?</button>
       </form>
       <ToastContainer />
     </div>

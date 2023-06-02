@@ -13,7 +13,6 @@ const Add_Patient = ({ modal_state }) => {
         patient_name: "",
         patient_firstname: "",
         patient_birthday: "",
-        patient_phone: "",
     })
 
     const toastOptions = {
@@ -27,7 +26,7 @@ const Add_Patient = ({ modal_state }) => {
     const add_patient_to_firestore_database = async (e) => {
         try {
             e.preventDefault();
-            if (patientInfos.patient_name !== "" && patientInfos.patient_firstname !== "") {
+            if (patientInfos.patient_name !== "" && patientInfos.patient_firstname !== "" && patientInfos.patient_birthday !== "") {
                 const patientId = uuidv4();
                 set(ref(db, 'patients/' + patientId), patientInfos)
                     .then(
@@ -41,7 +40,7 @@ const Add_Patient = ({ modal_state }) => {
                         toast.error('Une erreur est survenue veuillez recommencer.', toastOptions)
                     });;
             } else {
-                toast.error('Le nom et le prénom ne doivent pas être vide !', toastOptions)
+                toast.error('Les champs ne doivent pas être vide !', toastOptions)
             }
         } catch (err) {
             throw err;
@@ -53,49 +52,47 @@ const Add_Patient = ({ modal_state }) => {
             <div onClick={modal_state} className="overlay" />
             <div className="modal-content">
                 <form onSubmit={add_patient_to_firestore_database}>
-                    <h3>Ajout d'un Patient</h3>
-                    <input
-                        type="text"
-                        placeholder="Nom"
-                        onChange={(e) => {
-                            setPatientInfos({
-                                ...patientInfos,
-                                patient_name: e.target.value.toString()
-                            })
-                        }}
-                    />
-                    <input
-                        type="text"
-                        placeholder="Prénom"
-                        onChange={(e) => {
-                            setPatientInfos({
-                                ...patientInfos,
-                                patient_firstname: e.target.value.toString()
-                            })
-                        }}
-                    />
-                    <input
-                        type="date"
-                        onChange={(e) => {
-                            setPatientInfos({
-                                ...patientInfos,
-                                patient_birthday: e.target.value.toString()
-                            })
-                        }}
-                    />
-                    <input
-                        type="tel"
-                        placeholder="06..."
-                        onChange={(e) => {
-                            setPatientInfos({
-                                ...patientInfos,
-                                patient_phone: e.target.value.toString()
-                            })
-                        }}
-                    />
-                    <button type="submit">
-                        Ajouter Patient
-                    </button>
+                    <h2 className="new-patient-title">Nouveau Patient</h2>
+                    <div className="new-patient-infos">
+                        <input
+                            type="text"
+                            placeholder="Nom*"
+                            onChange={(e) => {
+                                setPatientInfos({
+                                    ...patientInfos,
+                                    patient_name: e.target.value.toUpperCase().toString()
+                                })
+                            }}
+                        />
+                        <input
+                            type="text"
+                            placeholder="Prénom*"
+                            onChange={(e) => {
+                                setPatientInfos({
+                                    ...patientInfos,
+                                    patient_firstname: e.target.value.toLowerCase().toString()
+                                })
+                            }}
+                        />
+                        <input
+                            type="date"
+                            placeholder="(jj/mm/aaaa)*"
+                            onChange={(e) => {
+                                setPatientInfos({
+                                    ...patientInfos,
+                                    patient_birthday: e.target.value.toString()
+                                })
+                            }}
+                        />
+                    </div>
+                    <div className="new-patient-btn">
+                        <button className="new-patient-btn-add" onClick={add_patient_to_firestore_database}>
+                            Ajouter
+                        </button>
+                        <button className="new-patient-btn-cancel" onClick={modal_state}>
+                            Annuler
+                        </button>
+                    </div>
                 </form>
             </div>
             <ToastContainer />

@@ -39,16 +39,10 @@
     border: none;
     border-radius: 4px;
     cursor: pointer;
-}
 
-.identification-button-hovered {
-    width: 100%;
-    padding: 10px;
-    background-color: #A1E455;
-    color: #ffff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+    &:hover {
+        background-color: #A1E455;
+    }
 }
 
 .identification-link-button {

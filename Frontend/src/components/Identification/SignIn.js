@@ -11,7 +11,6 @@ const SignIn = ({ switch_identification }) => {
 
   const [redirecToDashBoard, setRedirectToDashBoard] = useState(false);
   const { updateUserUID } = useContext(UserContext);
-  const [isHovered, setIsHovered] = useState(false);
   const [forgetPassword, setForgetPassword] = useState(false);
   const [userLogin, setUserLogin] = useState({
     user_email: "",
@@ -89,30 +88,9 @@ const SignIn = ({ switch_identification }) => {
               });
             }}
           />
-          <button
-            className={
-              isHovered
-                ? "identification-button-hovered"
-                : "identification-button"
-            }
-            type="submit"
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-          >
-            Se connecter
-          </button>
-          <button
-            className="identification-link-button"
-            onClick={() => setForgetPassword(true)}
-          >
-            Mot de passe oublié ?
-          </button>
-          <button
-            className="identification-link-button"
-            onClick={switch_identification}
-          >
-            Pas encore de compte ?
-          </button>
+          <button className="identification-button" type="submit">Se connecter</button>
+          <button className="identification-link-button" onClick={() => setForgetPassword(true)}>Mot de passe oublié ?</button>
+          <button className="identification-link-button" onClick={switch_identification}>Pas encore de compte ?</button>
         </form>
         <ToastContainer />
       </div>

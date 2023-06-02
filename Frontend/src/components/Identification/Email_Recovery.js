@@ -8,7 +8,6 @@ import "../../styles/Identification.scss";
 const Email_Recovery = () => {
   const [identificationPage, setIdentificationPage] = useState(false);
   const [email, setEmail] = useState("");
-  const [isHovered, setIsHovered] = useState(false);
 
   const toastOptions = {
     position: "bottom-right",
@@ -53,24 +52,8 @@ const Email_Recovery = () => {
             })
           }}
         />
-        <button
-          className={
-            isHovered
-              ? "identification-button-hovered"
-              : "identification-button"
-          }
-          type="submit"
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-        >
-          Envoyer
-        </button>
-        <button
-          className="identification-link-button"
-          onClick={() => setIdentificationPage(true)}
-        >
-          Retour à la page de Login
-        </button>
+        <button className="identification-button" type="submit">Envoyer</button>
+        <button className="identification-link-button" onClick={() => setIdentificationPage(true)}>Retour à la page de Login</button>
       </form>
       <ToastContainer />
     </div>

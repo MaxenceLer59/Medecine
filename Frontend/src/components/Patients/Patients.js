@@ -79,7 +79,6 @@ const Patients = () => {
                                     <span className="toUpperCaseName">{patient.patient_name} </span>
                                     <span className="capitalizeFirstName">{patient.patient_firstname}</span>
                                 </p>
-                                <p className="patient-info-phone">{patient.patient_phone}</p>
                             </div>
                             <button className="patient-btn-fiche">
                                 Voir Fiche

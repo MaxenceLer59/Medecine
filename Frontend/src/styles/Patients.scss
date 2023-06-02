@@ -28,47 +28,95 @@ body.active-modal {
     max-width: 600px;
     min-width: 300px;
     padding: 20px;
+    border-radius: 8px;
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
     form {
         display: flex;
         flex-direction: column;
+        align-items: center;
         gap: 2rem;
         border-radius: 2rem;
         padding: 3rem 5rem;
-    }
 
-    h3 {
-        font-size: 24px;
-        font-weight: bold;
-        color: #333;
-        margin-bottom: 20px;
-    }
+        .new-patient-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
 
-    input {
-        padding: 1rem;
-        border: 0.1rem solid #ccc;
-        border-radius: 0.4rem;
-        width: 100%;
-        font-size: 1rem;
-    }
+        .new-patient-infos {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 1rem;
 
-    button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 1rem;
-        background-color: #6a0505;
-        color: white;
-        padding: 1rem 2rem;
-        border: none;
-        font-weight: bold;
-        cursor: pointer;
-        border-radius: 0.4rem;
-        font-size: 1rem;
-        text-transform: uppercase;
-        transition: 0.5s ease-in-out;
+            input {
+                padding: 1rem;
+                border: 0.1rem solid #ccc;
+                border-radius: 0.4rem;
+                width: 100%;
+                font-size: 1rem;
+
+                &:nth-child(1),
+                &:nth-child(2) {
+                    flex-basis: 45%; // Divise l'espace en deux pour les deux premiers inputs
+                }
+    
+                &:nth-child(3) {
+                    flex-basis: 100%; // Prend toute la largeur pour le troisième input
+                }
+            }
+        }
+
+        .new-patient-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+
+            .new-patient-btn-add {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 1rem;
+                background-color: #26ABA7;
+                color: white;
+                padding: 1rem 2rem;
+                border: none;
+                font-weight: bold;
+                cursor: pointer;
+                border-radius: 0.4rem;
+                font-size: 1rem;
+                text-transform: uppercase;
+
+                &:hover {
+                    background-color: #8bca44;
+                }
+            }
+
+            .new-patient-btn-cancel {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 1rem;
+                background-color: #eeeeee;
+                color: #333;
+                padding: 1rem 2rem;
+                border: none;
+                font-weight: bold;
+                cursor: pointer;
+                border-radius: 0.4rem;
+                font-size: 1rem;
+                text-transform: uppercase;
+
+                &:hover {
+                    background-color: #cccccc;
+                }
+            }
+        }
     }
 }
 
@@ -79,7 +127,7 @@ body.active-modal {
     height: -webkit-fill-available;
     margin: 1rem;
     border-radius: 8px;
-    overflow: hidden ;
+    overflow: hidden;
 
     .search-filter {
         display: flex;
@@ -97,17 +145,18 @@ body.active-modal {
             padding: 8px;
             margin: 1rem;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    
+
             input {
                 border: none;
                 background-color: transparent;
                 outline: none;
                 padding-left: inherit;
             }
-    
+
             button {
                 border: none;
                 background-color: transparent;
+
                 img {
                     height: 2rem;
                     width: 2rem;
@@ -115,8 +164,8 @@ body.active-modal {
                 }
             }
         }
-    
     }
+
     .patient-card {
         display: grid;
         grid-template-columns: 10% 70% 10%;
@@ -141,21 +190,21 @@ body.active-modal {
                 font-weight: bold;
                 color: #333333;
                 margin-bottom: 10px;
-    
+
                 .toUpperCaseName {
                     text-transform: uppercase;
                 }
-                
+
                 .capitalizeFirstName {
                     text-transform: capitalize;
                 }
             }
-    
+
             .patient-info-phone {
                 font-size: small;
                 font-weight: lighter;
                 color: rgba(128, 128, 128, 0.647);
-    
+
             }
         }
 
