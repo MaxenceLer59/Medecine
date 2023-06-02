@@ -20,7 +20,7 @@ const Dashboard = () => {
                     <img src={logo} alt="logo" />
                     <h3>Medecine</h3>
                 </div>
-                <div>
+                <div className="sidebar-btn-add-patient">
                     <button className={ isHoveredAdd ? "sidebar-add-patient-hovered" : 'sidebar-add-patient'} onClick={() => {setAddPatientModal(true) }} onMouseEnter={() => {setIsHoveredAdd(true)}} onMouseLeave={() => {setIsHoveredAdd(false)}}>
                         Ajouter un patient
                     </button>

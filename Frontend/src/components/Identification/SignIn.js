@@ -20,9 +20,7 @@ const SignIn = ({ switch_identification }) => {
 
   const toastOptions = {
     position: "bottom-right",
-    autoClose: 8000,
-    pauseOnHover: true,
-    draggable: true,
+    autoClose: 3000,
     theme: "dark",
   };
 
@@ -31,12 +29,16 @@ const SignIn = ({ switch_identification }) => {
       e.preventDefault();
       const { user_email, user_password } = userLogin;
       const checkInfo = () => {
+        if (user_email === "" && user_password === "") {
+          toast.error("L'Email et le Mot de passe ne doivent pas être vide !", toastOptions);
+          return false;
+        }
         if (user_email === "") {
-          toast.error("Username can not be empty", toastOptions);
+          toast.error("L'email ne doit pas être vide !", toastOptions);
           return false;
         }
         if (user_password === "") {
-          toast.error("Password can not be empty", toastOptions);
+          toast.error("Le mot de passe ne doit pas être vide !", toastOptions);
           return false;
         }
         return true;
@@ -46,14 +48,13 @@ const SignIn = ({ switch_identification }) => {
           .then((userCredential) => {
             const uid = userCredential.user.uid;
             updateUserUID(uid); // Mettre à jour l'UID de l'utilisateur connecté
-            toast.success("Vous avez réussi à vous connecter !");
             setRedirectToDashBoard(true);
-
           })
           .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
             console.log(errorCode, errorMessage);
+            toast.error("Mauvaise combinaison d'Email/Mot de passe", toastOptions);
           });
       }
     } catch (err) {
