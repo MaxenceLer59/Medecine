@@ -6,7 +6,7 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background-color: #003D3B;  
+    background-color: #003D3B;
 }
 
 .identification-form {
@@ -46,9 +46,27 @@
 }
 
 .identification-link-button {
+    position: relative;
     color: #007bff;
     background-color: transparent;
     border: none;
     cursor: pointer;
     margin-top: 10px;
+    overflow: hidden;
+
+    &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 0;
+        height: 1px;
+        margin-top: 1px;
+        background-color: #007bff;
+        transition: width 0.3s ease;
+    }
+
+    &:hover::before {
+        width: 100%;
+    }
 }
