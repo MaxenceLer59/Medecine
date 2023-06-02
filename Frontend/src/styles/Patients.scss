@@ -171,7 +171,7 @@ body.active-modal {
 
         .patient-card {
             display: grid;
-            grid-template-columns: 10% 70% 10%;
+            grid-template-columns: 10% 60% 30%;
             align-items: center;
             background-color: #ffffff;
             gap: 2vw;
@@ -210,16 +210,38 @@ body.active-modal {
     
                 }
             }
+
+            .patient-btns {
+                display: flex;
+                flex-direction: row;
+                gap: 3vw;
+
+                .patient-btn-fiche {
+                    padding: 8px;
+                    background-color: #8bca44;
+                    color: #ffff;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
     
-            .patient-btn-fiche {
-                padding: 8px;
-                background-color: #8bca44;
-                color: #ffff;
-                border: none;
-                border-radius: 4px;
-                cursor: pointer;
+                    &:hover{
+                        background-color: #b8ee7b;
+                    }
+                }
+    
+                .patient-btn-document {
+                    padding: 8px;
+                    background-color: #007bff;
+                    color: #ffff;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+    
+                    &:hover {
+                        background-color: #8bc3ff;
+                    }
+                }
             }
-    
         }
     }
 

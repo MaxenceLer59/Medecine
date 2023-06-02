@@ -6,8 +6,10 @@ import "../../styles/Patients.scss";
 import people from "../../../public/Image/people-logo.png"
 import loop from "../../../public/Image/loop.png";
 import { toast, ToastContainer } from "react-toastify";
+import Add_Documents from "./Add_Documents";
 
 const Patients = () => {
+    const [addDocumentModal, setAddDocumentModal] = useState(false);
     const [search, setSearch] = useState("");
     const [patientList, setPatientList] = useState([]);
     const [displayPatientList, setDisplayPatientList] = useState([]);
@@ -19,6 +21,11 @@ const Patients = () => {
         theme: "dark",
         autoClose: 3000,
     };
+
+    const DisplayModal = () => {
+        if (addDocumentModal) setAddDocumentModal(false);
+        else setAddDocumentModal(true);
+    }
 
     const formatDate = (dateString) => {
         const [year, month, day] = dateString.split("-");
@@ -75,7 +82,7 @@ const Patients = () => {
                     const patientName = patient.patient_name.toLowerCase();
                     const patientFirstName = patient.patient_firstname.toLowerCase();
                     const searchQuery = search.toLowerCase();
-                    if (patientName === searchQuery || patientFirstName === searchQuery) {
+                    if (patientName.includes(searchQuery) || patientFirstName.includes(searchQuery)) {
                         searching_patientList.push(patient)
                     }
                 })
@@ -115,9 +122,15 @@ const Patients = () => {
                                     </p>
                                     <p className="patient-info-birthday">Née le: {formatDate(patient.patient_birthday)}</p>
                                 </div>
-                                <button className="patient-btn-fiche">
-                                    Voir Fiche
-                                </button>
+                                <div className="patient-btns">
+                                    <button className="patient-btn-fiche">
+                                        Voir Fiche
+                                    </button>
+                                    <button className="patient-btn-document" onClick={DisplayModal}>
+                                        Nouveau Document
+                                    </button>
+                                    {addDocumentModal ? <Add_Documents modal_state={DisplayModal} /> : null}
+                                </div>
                             </div>
                         );
                     } else {
