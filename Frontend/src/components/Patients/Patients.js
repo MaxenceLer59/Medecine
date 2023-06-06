@@ -13,7 +13,6 @@ const Patients = () => {
     const [search, setSearch] = useState("");
     const [patientList, setPatientList] = useState([]);
     const [displayPatientList, setDisplayPatientList] = useState([]);
-    const monthNames = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
     const userUID = useContext(UserContext).userUID;
 
     const toastOptions = {
@@ -29,10 +28,8 @@ const Patients = () => {
 
     const formatDate = (dateString) => {
         const [year, month, day] = dateString.split("-");
-        const monthIndex = parseInt(month, 10) - 1;
-        const monthName = monthNames[monthIndex];
-        // Retourner la date formatée
-        return `${parseInt(day, 10)} ${monthName} ${year}`;
+        // Retourner la date formatée dd/mm/yyyy
+        return `${day}/${month}/${year}`;
     };
 
     useEffect(() => {
