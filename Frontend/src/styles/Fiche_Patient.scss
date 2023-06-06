@@ -1,0 +1,67 @@
+@import url(./default_settings.scss);
+
+.fiche-container {
+    display: grid;
+    grid-template-columns: 40% 60%;
+    background-color: grey;
+    height: -webkit-fill-available;
+    margin: 1rem;
+    border-radius: 8px;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+
+    .patient-card-infos,
+    .patient-card-documents,
+    .patient-card-dermato {
+        border-radius: 8px;
+        height: inherit;
+        color: #333333;
+        background-color: #fff;
+        margin: 1rem;
+    }
+
+    .patient-card-infos-documents {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        .patient-card-infos {
+            display: flex;
+            flex-direction: column;
+    
+            .patient-card-infos-title {
+                font-weight: bold;
+                text-align: center;
+                margin-bottom: 10px;
+            }
+        }
+    
+        .patient-card-documents {
+            background-color: #fff;
+        }
+    }
+
+
+    .patient-card-dermato {
+        background-color: #fff;
+        position: relative;
+
+        .body-image {
+            width: 100%;
+            height: auto;
+        }
+
+        .click-marker {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: black;
+            transform: translate(-50%, -50%);
+        }
+    }
+
+}
